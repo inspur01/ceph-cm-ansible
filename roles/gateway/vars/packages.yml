@@ -7,6 +7,7 @@ packages:
   - ipmitool
   - git
   - fail2ban
+  - NetworkManager-glib
   ## VPN-specific stuff
   - openvpn
   - easy-rsa
