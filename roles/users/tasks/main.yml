@@ -52,7 +52,7 @@
     groups: sudo
     shell: /bin/bash
     state: present
-  with_items: managed_admin_users
+  with_items: "{{ managed_admin_users }}"
   tags:
     - user
 
@@ -61,7 +61,7 @@
     name: "{{ item.name }}"
     shell: /bin/bash
     state: present
-  with_items: managed_users
+  with_items: "{{ managed_users }}"
   tags:
     - user
 
@@ -69,7 +69,7 @@
   authorized_key:
     user: "{{ item.name }}"
     key: "{{ item.key }}"
-  with_items: managed_users|list + managed_admin_users|list
+  with_items: "{{ managed_users|list + managed_admin_users|list }}"
   # Register and retry to work around transient githubusercontent.com issues
   register: ssh_key_update
   until: ssh_key_update|success
@@ -93,7 +93,7 @@
   user:
     name: "{{ item }}"
     state: absent
-  with_items: revoked_users
+  with_items: "{{ revoked_users }}"
   tags:
     - user
     - revoke

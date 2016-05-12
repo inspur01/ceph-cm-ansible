@@ -48,8 +48,8 @@
   when: srv_libvirtpool.stat.exists
 
 - name: See which pools are defined and which are not
-  shell: virsh pool-info {{ item }}
-  with_items: ls_libvirtpool.stdout_lines
+  shell: virsh pool-info "{{ item }}"
+  with_items: "{{ ls_libvirtpool.stdout_lines }}"
   register: pool_info
   when: srv_libvirtpool.stat.exists
   # don't bother reporting anything about this command; it's not useful
@@ -80,7 +80,7 @@
     virsh pool-autostart {{ item | quote }};
     virsh pool-build {{ item | quote }};
     virsh pool-start {{ item | quote }}
-  with_items: pools_to_define
+  with_items: "{{ pools_to_define }}"
   when: pools_to_define|length > 0
 
 # Front network

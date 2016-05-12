@@ -74,8 +74,8 @@
   no_log: True
 
 - name: Enable necessary rhsm repos
-  command: subscription-manager repos --enable {{ item }}
-  with_items: rhsm_repos
+  command: subscription-manager repos --enable "{{ item }}"
+  with_items: "{{ rhsm_repos }}"
   when: replace_repos
 
 - name: Remove old apt-mirror repository definition.
